@@ -38,7 +38,24 @@ async function getAirplanes(req, res) {
                 .json(ErrorResponse)
     }
 }
+
+async function getAirplane(req, res) {
+    try {
+        const airplane = await AirplaneService.getAirplane(req.params.id);
+        SuccessResponse.data = airplane;
+        return res
+                .status(StatusCodes.OK)
+                .json(SuccessResponse)  
+    } catch (error) {
+        ErrorResponse.message = "not able to get pertucluar Airplane";
+        ErrorResponse.error = error;
+        return res
+                .status(StatusCodes.INTERNAL_SERVER_ERROR)
+                .json(ErrorResponse)
+    }
+}
 module.exports = {
     createAirplane,
-    getAirplanes
+    getAirplanes,
+    getAirplane
 }
