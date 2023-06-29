@@ -4,6 +4,14 @@ const AppError = require("../utils/errors/app-error");
 const TimeChecker = require("../utils/helpers/datetime-helpers");
 
 function validateCreateRequest(req, res, next) {
+  if (!TimeChecker.compareTime(req.body.arrivalTime, req.body.departureTime)) {
+    ErrorResponse.message = "Something went wrong while creating flight";
+    ErrorResponse.error = new AppError(
+      ["Arrival time should be less than departure time!"],
+      StatusCodes.BAD_REQUEST
+    );
+    return res.status(StatusCodes.BAD_REQUEST).json(ErrorResponse);
+  }
   if (!req.body.flightNumber) {
     ErrorResponse.message = "Something went wrong while creating flight";
     ErrorResponse.error = new AppError(
