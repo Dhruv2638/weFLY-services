@@ -8,6 +8,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.use("/api", apiRoutes);
+app.use("/filghtsService/api", apiRoutes);
 
 app.listen(ServerConfig.PORT, () => {
   console.log("We are able to connect with PORT,", ServerConfig.PORT);
